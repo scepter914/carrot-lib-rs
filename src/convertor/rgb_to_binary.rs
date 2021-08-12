@@ -1,6 +1,6 @@
 extern crate image;
 
-use crate::convertor::{gray_to_binary, gray_to_rgb, rgb_to_gray};
+use super::{gray_to_binary, gray_to_rgb, rgb_to_gray};
 use image::{GrayImage, Luma, Rgb, RgbImage};
 
 // image rgb to binary by high and low threshold
