@@ -4,30 +4,30 @@ extern crate simplelog;
 use chrono::Local;
 use simplelog::Level;
 use std::fs;
+use std::path::Path;
+use std::path::PathBuf;
 
 pub struct Logger {
-    logger_directory_path: String,
+    logger_directory_path: PathBuf,
     logger_level: Level,
 }
 
 impl Logger {
-    pub fn init(log_level: &str, directory_path: impl Into<String>) -> Logger {
+    pub fn init(log_level: &str, directory_path: impl Into<PathBuf>) -> Logger {
         let logger_level_ = set_log_level(log_level);
-        let directory_path_with_time = format!(
-            "{}/{}/",
-            directory_path.into(),
-            get_now_time_without_millisecond()
-        );
+        let directory_path_with_time = directory_path
+            .into()
+            .join(get_now_time_without_millisecond());
         let _ = fs::create_dir(&directory_path_with_time);
         let logger = Logger {
-            logger_directory_path: directory_path_with_time,
+            logger_directory_path: directory_path_with_time.to_path_buf(),
             logger_level: logger_level_,
         };
         logger.logger_init();
         return logger;
     }
 
-    fn logger_init(&self) -> () {
+    fn logger_init(&self) {
         simplelog::CombinedLogger::init(vec![
             simplelog::TermLogger::new(
                 self.logger_level.to_level_filter(),
@@ -44,35 +44,28 @@ impl Logger {
         .unwrap();
     }
 
-    pub fn get_full_path(&self, file_path: impl Into<String>) -> String {
-        return format!("{}{}", self.logger_directory_path, file_path.into());
+    pub fn get_full_path(&self, file_path: impl Into<PathBuf>) -> PathBuf {
+        self.logger_directory_path.join(file_path.into())
     }
 
     pub fn get_time_path(
         &self,
-        file_path: impl Into<String>,
-        extension: impl Into<String>,
-    ) -> String {
-        return format!(
-            "{}{}{}.{}",
-            self.logger_directory_path,
-            file_path.into(),
-            get_now_time(),
-            extension.into(),
-        );
+        file_path: impl Into<PathBuf>,
+        extension: impl Into<PathBuf>,
+    ) -> PathBuf {
+        self.logger_directory_path
+            .join(file_path.into())
+            .join(Path::new(&get_now_time()).with_extension(extension.into()))
     }
+
     pub fn get_time_path_without_millisecond(
         &self,
         file_path: impl Into<String>,
         extension: impl Into<String>,
-    ) -> String {
-        return format!(
-            "{}{}{}.{}",
-            self.logger_directory_path,
-            file_path.into(),
-            get_now_time_without_millisecond(),
-            extension.into(),
-        );
+    ) -> PathBuf {
+        self.logger_directory_path
+            .join(file_path.into())
+            .join(Path::new(&get_now_time_without_millisecond()).with_extension(extension.into()))
     }
 }
 
