@@ -93,11 +93,11 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
     let binarized_image_by_rgb_threshold =
         convert_to_binary_image_by_threshold(image, rgb_threshold);
     let rgb_binarized_image_by_rgb_threshold =
-        gray_to_rgb::convert_to_rgb_image(&binarized_image_by_rgb_threshold);
+        gray_to_rgb::convert(&binarized_image_by_rgb_threshold);
 
     // r
     let gray_r_image = rgb_to_gray::convert_r_to_gray_image(&image);
-    let binary_r_image = gray_to_binary::convert_gray_to_binary_within_threshold(
+    let binary_r_image = gray_to_binary::convert_by_threshold(
         &gray_r_image,
         rgb_threshold.r_high_threshold(),
         rgb_threshold.r_low_threshold(),
@@ -105,7 +105,7 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
 
     // g
     let gray_g_image = rgb_to_gray::convert_g_to_gray_image(&image);
-    let binary_g_image = gray_to_binary::convert_gray_to_binary_within_threshold(
+    let binary_g_image = gray_to_binary::convert_by_threshold(
         &gray_g_image,
         rgb_threshold.g_high_threshold(),
         rgb_threshold.g_low_threshold(),
@@ -113,7 +113,7 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
 
     // b
     let gray_b_image = rgb_to_gray::convert_b_to_gray_image(&image);
-    let binary_b_image = gray_to_binary::convert_gray_to_binary_within_threshold(
+    let binary_b_image = gray_to_binary::convert_by_threshold(
         &gray_b_image,
         rgb_threshold.b_high_threshold(),
         rgb_threshold.b_low_threshold(),
