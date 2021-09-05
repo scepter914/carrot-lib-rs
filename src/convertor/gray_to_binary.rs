@@ -1,16 +1,22 @@
 extern crate image;
+extern crate imageproc;
+
+/// - Convert gray image to binary image by threshold
+///     - If low_threshold <= pixel_value <= high_threshold then, output pixel is 255 (white color)
+/// - Use Case
+///     - If you want to a get binary image from pixel above threshold of a gray image, you should use convert_gray_to_binary_within_threshold(gray_image, threshold, 255)
 
 pub fn convert_gray_to_binary_within_threshold(
-    image: &image::GrayImage,
+    gray_image: &image::GrayImage,
     low_threshold: u8,
     high_threshold: u8,
 ) -> image::GrayImage {
-    let width = image.width();
-    let height = image.height();
+    let width = gray_image.width();
+    let height = gray_image.height();
     let mut binary_image = image::GrayImage::new(width, height);
     for i in 0..width {
         for j in 0..height {
-            let pixel = image.get_pixel(i, j);
+            let pixel = gray_image.get_pixel(i, j);
             let value = binarize_pixel(pixel, high_threshold, low_threshold);
             binary_image.put_pixel(i, j, value);
         }
@@ -30,4 +36,11 @@ fn binarize_pixel(
         value = [0; 1];
     }
     image::Luma(value)
+}
+
+/// - Convert gray image to binary image by ostu method
+
+pub fn convert_gray_to_binary_by_otsu(gray_image: &image::GrayImage) -> image::GrayImage {
+    let otsu_level = imageproc::contrast::otsu_level(&gray_image);
+    imageproc::contrast::threshold(&gray_image, otsu_level)
 }
