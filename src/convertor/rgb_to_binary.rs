@@ -1,7 +1,5 @@
-extern crate image;
-
 use super::{gray_to_binary, gray_to_rgb, rgb_to_gray};
-use image::{GrayImage, Rgb, RgbImage};
+use image::{GrayImage, Luma, Rgb, RgbImage};
 
 /// RGB threshold to convert from RGB image to binary image by high and low threshold
 ///  high_threshold : [r, g, b]
@@ -39,10 +37,7 @@ impl RGBThreshold {
 ///     - G threshold low < pixel.g < G threshold high
 ///     - B threshold low < pixel.b < B threshold high
 
-pub fn convert_to_binary_image_by_threshold(
-    image: &RgbImage,
-    rgb_threshold: &RGBThreshold,
-) -> GrayImage {
+pub fn convert_by_threshold(image: &RgbImage, rgb_threshold: &RGBThreshold) -> GrayImage {
     let width = image.width();
     let height = image.height();
     let mut binarized_image = image::GrayImage::new(width, height);
@@ -50,7 +45,7 @@ pub fn convert_to_binary_image_by_threshold(
         for j in 0..height {
             let pixel = image.get_pixel(i, j);
             let value = convert_to_binary_pixel_by_threshold(pixel, rgb_threshold);
-            binarized_image.put_pixel(i, j, image::Luma(value));
+            binarized_image.put_pixel(i, j, Luma(value));
         }
     }
     binarized_image
@@ -90,8 +85,7 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
     let height = image.height();
     let mut combined_image = image::RgbImage::new(2 * width, 4 * height);
 
-    let binarized_image_by_rgb_threshold =
-        convert_to_binary_image_by_threshold(image, rgb_threshold);
+    let binarized_image_by_rgb_threshold = convert_by_threshold(image, rgb_threshold);
     let rgb_binarized_image_by_rgb_threshold =
         gray_to_rgb::convert(&binarized_image_by_rgb_threshold);
 
@@ -102,6 +96,8 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
         rgb_threshold.r_high_threshold(),
         rgb_threshold.r_low_threshold(),
     );
+    let rgb_converted_gray_r_image = gray_to_rgb::convert(&gray_r_image);
+    let rgb_converted_binary_r_image = gray_to_rgb::convert(&binary_r_image);
 
     // g
     let gray_g_image = rgb_to_gray::convert_g_to_gray_image(&image);
@@ -110,6 +106,8 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
         rgb_threshold.g_high_threshold(),
         rgb_threshold.g_low_threshold(),
     );
+    let rgb_converted_gray_g_image = gray_to_rgb::convert(&gray_g_image);
+    let rgb_converted_g_image = gray_to_rgb::convert(&binary_g_image);
 
     // b
     let gray_b_image = rgb_to_gray::convert_b_to_gray_image(&image);
@@ -118,6 +116,8 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
         rgb_threshold.b_high_threshold(),
         rgb_threshold.b_low_threshold(),
     );
+    let rgb_converted_gray_b_image = gray_to_rgb::convert(&gray_b_image);
+    let rgb_converted_binary_b_image = gray_to_rgb::convert(&binary_b_image);
 
     for i in 0..width {
         for j in 0..height {
@@ -130,34 +130,35 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
             combined_image.put_pixel(width + i, j, *pixel);
 
             // r, r thres
-            let pixel = gray_r_image.get_pixel(i, j);
-            combined_image.put_pixel(i, height + j, gray_to_rgb::convert_to_rgb_pixel(pixel));
-            let pixel = binary_r_image.get_pixel(i, j);
-            combined_image.put_pixel(
-                width + i,
-                height + j,
-                gray_to_rgb::convert_to_rgb_pixel(&pixel),
-            );
+            let pixel = rgb_converted_binary_r_image.get_pixel(i, j);
+            combined_image.put_pixel(i, height + j, &pixel);
 
-            // g, g thres
-            let pixel = gray_g_image.get_pixel(i, j);
-            combined_image.put_pixel(i, 2 * height + j, gray_to_rgb::convert_to_rgb_pixel(&pixel));
-            let pixel = binary_g_image.get_pixel(i, j);
-            combined_image.put_pixel(
-                width + i,
-                2 * height + j,
-                gray_to_rgb::convert_to_rgb_pixel(&pixel),
-            );
+            // let pixel = binary_r_image.get_pixel(i, j);
+            // combined_image.put_pixel(
+            //     width + i,
+            //     height + j,
+            //     gray_to_rgb::convert_to_rgb_pixel(&pixel),
+            // );
 
-            // b, b thres
-            let pixel = gray_b_image.get_pixel(i, j);
-            combined_image.put_pixel(i, 3 * height + j, gray_to_rgb::convert_to_rgb_pixel(&pixel));
-            let pixel = binary_b_image.get_pixel(i, j);
-            combined_image.put_pixel(
-                width + i,
-                3 * height + j,
-                gray_to_rgb::convert_to_rgb_pixel(&pixel),
-            );
+            // // g, g thres
+            // let pixel = gray_g_image.get_pixel(i, j);
+            // combined_image.put_pixel(i, 2 * height + j, gray_to_rgb::convert_to_rgb_pixel(&pixel));
+            // let pixel = binary_g_image.get_pixel(i, j);
+            // combined_image.put_pixel(
+            //     width + i,
+            //     2 * height + j,
+            //     gray_to_rgb::convert_to_rgb_pixel(&pixel),
+            // );
+
+            // // b, b thres
+            // let pixel = gray_b_image.get_pixel(i, j);
+            // combined_image.put_pixel(i, 3 * height + j, gray_to_rgb::convert_to_rgb_pixel(&pixel));
+            // let pixel = binary_b_image.get_pixel(i, j);
+            // combined_image.put_pixel(
+            //     width + i,
+            //     3 * height + j,
+            //     gray_to_rgb::convert_to_rgb_pixel(&pixel),
+            // );
         }
     }
     combined_image

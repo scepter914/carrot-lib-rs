@@ -1,11 +1,6 @@
-pub mod gray_image;
-pub mod rgb_image;
-
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
-// use std::env;
-// use std::io::prelude::*;
 
 pub fn save_ppm_file(
     image: &image::RgbImage,

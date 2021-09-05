@@ -1,5 +1,3 @@
-extern crate image;
-
 /// convert from gray image to rgb image
 
 pub fn convert(image: &image::GrayImage) -> image::RgbImage {

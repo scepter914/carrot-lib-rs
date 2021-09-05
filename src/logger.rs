@@ -1,6 +1,3 @@
-extern crate chrono;
-extern crate simplelog;
-
 use chrono::Local;
 use simplelog::Level;
 use std::fs;

@@ -1,6 +1,3 @@
-extern crate image;
-extern crate imageproc;
-
 /// - Convert gray image to binary image by threshold
 ///     - If low_threshold <= pixel_value <= high_threshold then, output pixel is 255 (white color)
 /// - Use Case

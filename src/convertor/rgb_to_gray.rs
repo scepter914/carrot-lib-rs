@@ -1,5 +1,3 @@
-extern crate image;
-
 pub fn convert(rgb_image: &image::RgbImage) -> image::GrayImage {
     let width = rgb_image.width();
     let height = rgb_image.height();
