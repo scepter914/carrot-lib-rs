@@ -131,7 +131,7 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
 
             // r, r thres
             let pixel = rgb_converted_binary_r_image.get_pixel(i, j);
-            combined_image.put_pixel(i, height + j, &pixel);
+            combined_image.put_pixel(i, height + j, *pixel);
 
             // let pixel = binary_r_image.get_pixel(i, j);
             // combined_image.put_pixel(
