@@ -1,9 +1,12 @@
 extern crate image;
 
 use super::{gray_to_binary, gray_to_rgb, rgb_to_gray};
-use image::{GrayImage, Luma, Rgb, RgbImage};
+use image::{GrayImage, Rgb, RgbImage};
 
-// image rgb to binary by high and low threshold
+/// RGB threshold to convert from RGB image to binary image by high and low threshold
+///  high_threshold : [r, g, b]
+///  low_threshold : [r, g, b]
+
 pub struct RGBThreshold {
     pub high_threshold: Rgb<u8>,
     pub low_threshold: Rgb<u8>,
@@ -11,29 +14,31 @@ pub struct RGBThreshold {
 
 impl RGBThreshold {
     pub fn r_high_threshold(&self) -> u8 {
-        return self.high_threshold[0];
+        self.high_threshold[0]
     }
     pub fn g_high_threshold(&self) -> u8 {
-        return self.high_threshold[1];
+        self.high_threshold[1]
     }
     pub fn b_high_threshold(&self) -> u8 {
-        return self.high_threshold[2];
+        self.high_threshold[2]
     }
     pub fn r_low_threshold(&self) -> u8 {
-        return self.low_threshold[0];
+        self.low_threshold[0]
     }
     pub fn g_low_threshold(&self) -> u8 {
-        return self.low_threshold[1];
+        self.low_threshold[1]
     }
     pub fn b_low_threshold(&self) -> u8 {
-        return self.low_threshold[2];
+        self.low_threshold[2]
     }
 }
 
-/// - If below condition satisfy, then return 255 (white)
+/// - Convert a rgb image to binary image
+/// - If below condition satisfy, then it return 255 (white) and the others return 0 (block).
 ///     - R threshold low < pixel.r < R threshold high
 ///     - G threshold low < pixel.g < G threshold high
 ///     - B threshold low < pixel.b < B threshold high
+
 pub fn convert_to_binary_image_by_threshold(
     image: &RgbImage,
     rgb_threshold: &RGBThreshold,
@@ -48,11 +53,16 @@ pub fn convert_to_binary_image_by_threshold(
             binarized_image.put_pixel(i, j, image::Luma(value));
         }
     }
-    return binarized_image;
+    binarized_image
 }
 
+/// - If below condition satisfy, then it return 255 (white) and the others return 0 (block).
+///     - R threshold low < pixel.r < R threshold high
+///     - G threshold low < pixel.g < G threshold high
+///     - B threshold low < pixel.b < B threshold high
+
 fn convert_to_binary_pixel_by_threshold(pixel: &Rgb<u8>, rgb_threshold: &RGBThreshold) -> [u8; 1] {
-    let value: [u8; 1];
+    let binary_pixel: [u8; 1];
     if rgb_threshold.low_threshold[0] <= pixel[0]
         && pixel[0] <= rgb_threshold.high_threshold[0]
         && rgb_threshold.low_threshold[1] <= pixel[1]
@@ -60,11 +70,11 @@ fn convert_to_binary_pixel_by_threshold(pixel: &Rgb<u8>, rgb_threshold: &RGBThre
         && rgb_threshold.low_threshold[2] <= pixel[2]
         && pixel[2] <= rgb_threshold.high_threshold[2]
     {
-        value = [255; 1];
+        binary_pixel = [255; 1];
     } else {
-        value = [0; 1];
+        binary_pixel = [0; 1];
     }
-    return value;
+    binary_pixel
 }
 
 /// - Debug image consist of 8 image
@@ -150,7 +160,5 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
             );
         }
     }
-    return combined_image;
+    combined_image
 }
-
-// image rgb to binary by rgb distance

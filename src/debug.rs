@@ -2,7 +2,7 @@ extern crate image;
 extern crate imageproc;
 
 use log::{debug, error, info, trace, warn};
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 use image::RgbImage;
 use imageproc::point::Point;
@@ -19,7 +19,7 @@ impl Benchmark {
         }
     }
 
-    pub fn print_bench_time(&self) -> () {
+    pub fn print_bench_time(&self) {
         let end = self.start_time.elapsed();
         info!(
             "Process {}.{:03} msec",
@@ -30,16 +30,16 @@ impl Benchmark {
 }
 
 // RGB image
-pub fn print_image_info(image: &RgbImage) -> () {
+pub fn print_image_info(image: &RgbImage) {
     info!("dimensions {:?}", image.dimensions());
     //info!("{:?}", self.image.color());
 }
 
-pub fn print_pixel_from_point(debug_message: &str, image: &RgbImage, point: Point<f32>) -> () {
+pub fn print_pixel_from_point(debug_message: &str, image: &RgbImage, point: Point<f32>) {
     print_pixel(debug_message, image, point.x as u32, point.y as u32);
 }
 
-pub fn print_pixel(debug_message: &str, image: &RgbImage, x: u32, y: u32) -> () {
+pub fn print_pixel(debug_message: &str, image: &RgbImage, x: u32, y: u32) {
     let pixel: &image::Rgb<u8> = image.get_pixel(x, y);
     debug!(
         "{}, RGB : {}, {}, {}",
@@ -48,6 +48,6 @@ pub fn print_pixel(debug_message: &str, image: &RgbImage, x: u32, y: u32) -> () 
 }
 
 // Point
-pub fn print_point_info(debug_message: &str, point: &Point<f32>) -> () {
+pub fn print_point_info(debug_message: &str, point: &Point<f32>) {
     debug!("{}, x {}, y {}", debug_message, point.x, point.y);
 }

@@ -24,7 +24,7 @@ impl Logger {
             logger_level: logger_level_,
         };
         logger.logger_init();
-        return logger;
+        logger
     }
 
     fn logger_init(&self) {
@@ -79,13 +79,13 @@ fn set_log_level(log_level: &str) -> Level {
         "Trace" => logger_level = Level::Trace,
         _ => logger_level = Level::Error,
     }
-    return logger_level;
+    logger_level
 }
 
 fn get_now_time() -> String {
-    return Local::now().format("%Y%m%d_%H%M_%S_%3f").to_string();
+    Local::now().format("%Y%m%d_%H%M_%S_%3f").to_string()
 }
 
 fn get_now_time_without_millisecond() -> String {
-    return Local::now().format("%Y%m%d_%H%M").to_string();
+    Local::now().format("%Y%m%d_%H%M").to_string()
 }
