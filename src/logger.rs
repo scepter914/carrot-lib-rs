@@ -47,22 +47,24 @@ impl Logger {
 
     pub fn get_time_path(
         &self,
-        file_path: impl Into<PathBuf>,
-        extension: impl Into<PathBuf>,
+        file_path: impl Into<String>,
+        extension: impl Into<String>,
     ) -> PathBuf {
-        self.logger_directory_path
-            .join(file_path.into())
-            .join(Path::new(&get_now_time()).with_extension(extension.into()))
+        let file_name = format!("{}{}", file_path.into(), get_now_time());
+        let file_with_extension = Path::new(&file_name).with_extension(extension.into());
+        self.logger_directory_path.join(file_with_extension)
     }
+
+    /// return path of "{directory_name}/{file_path}{now_time}.{extension}"
 
     pub fn get_time_path_without_millisecond(
         &self,
         file_path: impl Into<String>,
         extension: impl Into<String>,
     ) -> PathBuf {
-        self.logger_directory_path
-            .join(file_path.into())
-            .join(Path::new(&get_now_time_without_millisecond()).with_extension(extension.into()))
+        let file_name = format!("{}{}", file_path.into(), get_now_time_without_millisecond());
+        let file_with_extension = Path::new(&file_name).with_extension(extension.into());
+        self.logger_directory_path.join(file_with_extension)
     }
 }
 
