@@ -1,4 +1,3 @@
-# realtime-cv-lib-rs
+# carrot_cv_utils
 
-- This repository is util library for real-time image processing library by rust
-- See also <https://github.com/scepter914/realtime-cv-rs>
+- This repository is util library for computer vision library by rust
