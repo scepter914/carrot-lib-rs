@@ -1,17 +1,17 @@
+use crate::util::file;
+
 use log::LevelFilter;
 use simplelog::{ColorChoice, CombinedLogger, Config, TermLogger, TerminalMode};
 use std::fs;
 use std::path::PathBuf;
 
-use crate::file;
-
 /// Logger class
-pub struct CarrotLogger {
+pub struct Logger {
     /// The root result of directory
     pub root_result_directory: PathBuf,
 }
 
-impl CarrotLogger {
+impl Logger {
     /// Init for CarrotLogger
     /// # Arguments
     /// - log_directory_path: The log directory path
@@ -21,7 +21,7 @@ impl CarrotLogger {
         log_directory_path: impl Into<PathBuf>,
         log_file_level: LevelFilter,
         log_terninal_level: LevelFilter,
-    ) -> CarrotLogger {
+    ) -> Logger {
         let root_result_directory = log_directory_path.into().join(file::get_time_str());
         let _ = fs::create_dir(&root_result_directory);
         let log_path = root_result_directory.join(file::get_time_filepath("log_", "txt"));
@@ -42,7 +42,7 @@ impl CarrotLogger {
         ])
         .unwrap();
 
-        CarrotLogger {
+        Logger {
             root_result_directory: root_result_directory.to_path_buf(),
         }
     }

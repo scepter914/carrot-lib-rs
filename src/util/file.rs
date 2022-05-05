@@ -26,3 +26,22 @@ pub fn get_time_filepath(file_name: impl Into<String>, extension: impl Into<Stri
     let file_with_extension = Path::new(&file_name_with_time).with_extension(extension.into());
     file_with_extension
 }
+
+/// Get time file path with second.
+/// "{file_name}{now_time}.{extension}"
+pub fn get_time_filepath_sec(
+    file_name: impl Into<String>,
+    extension: impl Into<String>,
+) -> PathBuf {
+    let file_name_with_time = format!("{}{}", file_name.into(), get_time_str_with_sec());
+    let file_with_extension = Path::new(&file_name_with_time).with_extension(extension.into());
+    file_with_extension
+}
+
+/// Get time file path with millisecond.
+/// "{file_name}{now_time}.{extension}"
+pub fn get_time_filepath_ms(file_name: impl Into<String>, extension: impl Into<String>) -> PathBuf {
+    let file_name_with_time = format!("{}{}", file_name.into(), get_time_str_with_ms());
+    let file_with_extension = Path::new(&file_name_with_time).with_extension(extension.into());
+    file_with_extension
+}
