@@ -1,11 +1,10 @@
 use image::{Rgb, RgbImage};
 use imageproc::point::Point;
-use log::{debug, error, info, trace, warn};
+use log::debug;
 
 // RGB image
 pub fn print_image_info(image: &RgbImage) {
-    info!("dimensions {:?}", image.dimensions());
-    //info!("{:?}", self.image.color());
+    debug!("dimensions {:?}", image.dimensions());
 }
 
 pub fn print_pixel_from_point(debug_message: &str, image: &RgbImage, point: Point<f32>) {

@@ -1,4 +1,4 @@
-use log::{debug, error, info, trace, warn};
+use log::debug;
 use std::time::Instant;
 
 pub struct Benchmark {
@@ -15,7 +15,7 @@ impl Benchmark {
 
     pub fn print_bench_time(&self) {
         let end = self.start_time.elapsed();
-        info!(
+        debug!(
             "Process {}.{:03} msec",
             end.as_micros() / 1000,
             end.as_micros() % 1000,

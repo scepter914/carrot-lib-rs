@@ -1,4 +1,4 @@
-use crate::util::file;
+use crate::util::path;
 
 use log::LevelFilter;
 use simplelog::{ColorChoice, CombinedLogger, Config, TermLogger, TerminalMode};
@@ -22,9 +22,9 @@ impl Logger {
         log_file_level: LevelFilter,
         log_terninal_level: LevelFilter,
     ) -> Logger {
-        let root_result_directory = log_directory_path.into().join(file::get_time_str());
+        let root_result_directory = log_directory_path.into().join(path::get_time_str());
         let _ = fs::create_dir(&root_result_directory);
-        let log_path = root_result_directory.join(file::get_time_filepath("log_", "txt"));
+        let log_path = root_result_directory.join(path::get_time_filepath("log_", "txt"));
 
         // logger init
         CombinedLogger::init(vec![
