@@ -5,11 +5,14 @@ pub struct Benchmark {
 }
 
 impl Benchmark {
-    pub fn set_start_time() -> Benchmark {
-        let now_time = Instant::now();
+    pub fn new() -> Benchmark {
         Benchmark {
-            start_time: now_time,
+            start_time: Instant::now(),
         }
+    }
+
+    pub fn start(&mut self) {
+        self.start_time = Instant::now();
     }
 
     pub fn get_bench_time(&self) -> String {
