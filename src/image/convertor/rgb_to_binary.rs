@@ -87,7 +87,7 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
 
     let binarized_image_by_rgb_threshold = convert_by_threshold(image, rgb_threshold);
     let rgb_binarized_image_by_rgb_threshold =
-        gray_to_rgb::convert(&binarized_image_by_rgb_threshold);
+        gray_to_rgb::convert_to_rgb(&binarized_image_by_rgb_threshold);
 
     // r
     let gray_r_image = rgb_to_gray::convert_r_to_gray_image(&image);
@@ -96,8 +96,8 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
         rgb_threshold.r_high_threshold(),
         rgb_threshold.r_low_threshold(),
     );
-    let rgb_converted_gray_r_image = gray_to_rgb::convert(&gray_r_image);
-    let rgb_converted_binary_r_image = gray_to_rgb::convert(&binary_r_image);
+    let rgb_converted_gray_r_image = gray_to_rgb::convert_to_r(&gray_r_image);
+    let rgb_converted_binary_r_image = gray_to_rgb::convert_to_rgb(&binary_r_image);
 
     // g
     let gray_g_image = rgb_to_gray::convert_g_to_gray_image(&image);
@@ -106,8 +106,8 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
         rgb_threshold.g_high_threshold(),
         rgb_threshold.g_low_threshold(),
     );
-    let rgb_converted_gray_g_image = gray_to_rgb::convert(&gray_g_image);
-    let rgb_converted_binary_g_image = gray_to_rgb::convert(&binary_g_image);
+    let rgb_converted_gray_g_image = gray_to_rgb::convert_to_g(&gray_g_image);
+    let rgb_converted_binary_g_image = gray_to_rgb::convert_to_rgb(&binary_g_image);
 
     // b
     let gray_b_image = rgb_to_gray::convert_b_to_gray_image(&image);
@@ -116,8 +116,8 @@ pub fn get_rgb_threshold_debug_image(image: &RgbImage, rgb_threshold: &RGBThresh
         rgb_threshold.b_high_threshold(),
         rgb_threshold.b_low_threshold(),
     );
-    let rgb_converted_gray_b_image = gray_to_rgb::convert(&gray_b_image);
-    let rgb_converted_binary_b_image = gray_to_rgb::convert(&binary_b_image);
+    let rgb_converted_gray_b_image = gray_to_rgb::convert_to_b(&gray_b_image);
+    let rgb_converted_binary_b_image = gray_to_rgb::convert_to_rgb(&binary_b_image);
 
     for i in 0..width {
         for j in 0..height {
