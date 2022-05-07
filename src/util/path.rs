@@ -10,13 +10,13 @@ pub fn get_time_str() -> String {
 /// Get string of time with second.
 /// {year}-{month}-{day}-{hour}-{minutes}-{second}.
 pub fn get_time_str_with_sec() -> String {
-    Local::now().format("%Y%m%d_%H%M_%S").to_string()
+    Local::now().format("%Y%m%d_%H%M%S").to_string()
 }
 
 /// Get string of time with millisecond.
 /// {year}-{month}-{day}-{hour}-{minutes}-{second}-{millisecond}
 pub fn get_time_str_with_ms() -> String {
-    Local::now().format("%Y%m%d_%H%M_%S_%3f").to_string()
+    Local::now().format("%Y%m%d_%H%M%S_%3f").to_string()
 }
 
 /// Get time file path
