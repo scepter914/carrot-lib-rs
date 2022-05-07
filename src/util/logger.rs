@@ -22,9 +22,11 @@ impl Logger {
         log_file_level: LevelFilter,
         log_terninal_level: LevelFilter,
     ) -> Logger {
-        let root_result_directory = log_directory_path.into().join(path::get_time_str());
+        let root_result_directory = log_directory_path
+            .into()
+            .join(path::get_time_str_with_sec());
         let _ = fs::create_dir(&root_result_directory);
-        let log_path = root_result_directory.join(path::get_time_filepath("log_", "txt"));
+        let log_path = root_result_directory.join(path::get_time_filepath_sec("log_", "txt"));
 
         // logger init
         CombinedLogger::init(vec![
