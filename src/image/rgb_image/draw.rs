@@ -15,13 +15,13 @@ pub fn draw_point(image: &RgbImage, point: Point<f32>, rgb: image::Rgb<u8>) -> R
 pub fn draw_rect(
     image: &RgbImage,
     center_point: Point<f32>,
-    height: u32,
     width: u32,
+    height: u32,
     rgb: image::Rgb<u8>,
 ) -> RgbImage {
     let x;
     let y;
     (x, y) = point::to_i32_tuple(center_point);
-    let rect = Rect::at(x, y).of_size(width, height);
+    let rect = Rect::at(x - width as i32 / 2, y - height as i32 / 2).of_size(width, height);
     drawing::draw_hollow_rect(image, rect, rgb)
 }
