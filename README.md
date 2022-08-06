@@ -2,4 +2,4 @@
 
 This repository is util library for by Rust.
 
-- [carrot-cv-utils](carrot-cv-utils/README.md)
+- [carrot-cv-utils](carrot-cv-utils)
