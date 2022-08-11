@@ -1,5 +1,5 @@
 [package]
-name = "carrot-utils"
+name = "carrot_utils"
 version = "0.1.0"
 description = "Utils library"
 edition = "2021"

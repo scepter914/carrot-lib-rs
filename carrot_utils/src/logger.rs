@@ -1,4 +1,4 @@
-use crate::util::path;
+use crate::path;
 
 use log::LevelFilter;
 use simplelog::{ColorChoice, CombinedLogger, Config, TermLogger, TerminalMode};
