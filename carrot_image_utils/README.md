@@ -1,3 +1,3 @@
-# carrot_cv_utils
+# carrot_image_utils
 
-This repository is util library for computer vision library by rust.
+This repository is util library for image processing library by rust.
