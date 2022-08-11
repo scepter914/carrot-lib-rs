@@ -1,4 +1,4 @@
-use crate::path;
+use crate::path::format_time_macro;
 
 use log::LevelFilter;
 use simplelog::{ColorChoice, CombinedLogger, Config, TermLogger, TerminalMode};
@@ -8,30 +8,34 @@ use std::path::PathBuf;
 /// Logger class
 pub struct Logger {
     /// The root result of directory
-    pub root_result_directory: PathBuf,
+    pub log_directory_path: PathBuf,
+    pub log_file_path: PathBuf,
 }
 
 impl Logger {
-    /// Init for CarrotLogger
+    /// Init for Logger
+    ///
     /// # Arguments
     /// - log_directory_path: The log directory path
+    /// - log_file_name: The log file name
     /// - log_file_level: The log level for file logger
-    /// - log_terninal_level: The log level for terninal logger
+    /// - log_terminal_level: The log level for terminal logger
     pub fn init(
-        log_directory_path: impl Into<PathBuf>,
+        log_directory_path: String,
+        log_file_name: String,
         log_file_level: LevelFilter,
-        log_terninal_level: LevelFilter,
+        log_terminal_level: LevelFilter,
     ) -> Logger {
-        let root_result_directory = log_directory_path
-            .into()
-            .join(path::get_time_str_with_sec());
-        let _ = fs::create_dir(&root_result_directory);
-        let log_path = root_result_directory.join(path::get_time_filepath_sec("log_", "txt"));
+        let formatted_log_directory_path: PathBuf = format_time_macro(log_directory_path);
+        let formatted_log_file_path: PathBuf =
+            formatted_log_directory_path.join(format_time_macro(log_file_name));
+
+        let _ = fs::create_dir(&formatted_log_directory_path);
 
         // logger init
         CombinedLogger::init(vec![
             TermLogger::new(
-                log_terninal_level,
+                log_terminal_level,
                 Config::default(),
                 TerminalMode::Mixed,
                 ColorChoice::Auto,
@@ -39,13 +43,14 @@ impl Logger {
             simplelog::WriteLogger::new(
                 log_file_level,
                 Config::default(),
-                fs::File::create(log_path).unwrap(),
+                fs::File::create(&formatted_log_file_path).unwrap(),
             ),
         ])
         .unwrap();
 
         Logger {
-            root_result_directory,
+            log_directory_path: formatted_log_directory_path,
+            log_file_path: formatted_log_file_path,
         }
     }
 }
