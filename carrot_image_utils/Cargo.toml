@@ -1,14 +1,14 @@
 [package]
-name = "carrot_cv_utils"
+name = "carrot_image_utils"
 version = "0.1.0"
-description = "Util library for computer vision"
+description = "Utils library for Image processing"
 keywords = ["image", "vision"]
 authors = ["scepter914 <scepter914@gmail.com>"]
-repository = "https://github.com/scepter914/carrot_cv_utils"
-# documentation = "https://docs.rs/carrot_cv_utils"
+repository = "https://github.com/scepter914/carrot-utils"
+documentation = "https://docs.rs/carrot_image_utils"
 license = "MIT"
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
