@@ -1,8 +1,8 @@
 [package]
 name = "carrot_cv_utils"
 version = "0.1.0"
-description = "CV util library"
-keywords = ["image", "vision", "real-time"]
+description = "Util library for computer vision"
+keywords = ["image", "vision"]
 authors = ["scepter914 <scepter914@gmail.com>"]
 repository = "https://github.com/scepter914/carrot_cv_utils"
 # documentation = "https://docs.rs/carrot_cv_utils"
