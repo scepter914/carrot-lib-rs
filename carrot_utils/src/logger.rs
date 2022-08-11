@@ -45,7 +45,7 @@ impl Logger {
         .unwrap();
 
         Logger {
-            root_result_directory: root_result_directory.to_path_buf(),
+            root_result_directory,
         }
     }
 }
