@@ -1,5 +1,6 @@
 use crate::path::format_time_macro;
 
+use log::info;
 use log::LevelFilter;
 use simplelog::{ColorChoice, CombinedLogger, Config, TermLogger, TerminalMode};
 use std::fs;
@@ -29,7 +30,6 @@ impl Logger {
         let formatted_log_directory_path: PathBuf = format_time_macro(log_directory_path.into());
         let formatted_log_file_path: PathBuf =
             formatted_log_directory_path.join(format_time_macro(log_file_name.into()));
-        println!("{:?}", &formatted_log_file_path);
         let _ = fs::create_dir_all(&formatted_log_directory_path);
 
         // logger init
@@ -47,6 +47,7 @@ impl Logger {
             ),
         ])
         .unwrap();
+        info!("Make log file to {:?}", &formatted_log_directory_path);
 
         Logger {
             log_directory_path: formatted_log_directory_path,
