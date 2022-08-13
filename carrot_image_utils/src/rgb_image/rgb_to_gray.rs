@@ -19,19 +19,16 @@ pub fn convert(rgb_image: &RgbImage) -> GrayImage {
 }
 
 /// convert R layer of RGB image to gray image
-
 pub fn convert_r_to_gray_image(rgb_image: &RgbImage) -> GrayImage {
     convert_channel_to_gray_image(rgb_image, 0)
 }
 
 /// convert G layer of RGB image to gray image
-
 pub fn convert_g_to_gray_image(rgb_image: &RgbImage) -> GrayImage {
     convert_channel_to_gray_image(rgb_image, 1)
 }
 
 /// convert B layer of RGB image to gray image
-
 pub fn convert_b_to_gray_image(rgb_image: &RgbImage) -> GrayImage {
     convert_channel_to_gray_image(rgb_image, 2)
 }

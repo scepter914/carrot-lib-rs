@@ -1,4 +1,5 @@
-use super::{gray_to_binary, gray_to_rgb, rgb_to_gray};
+use crate::gray_image::{gray_to_binary, gray_to_rgb};
+use crate::rgb_image::rgb_to_gray;
 use image::{GrayImage, Luma, Rgb, RgbImage};
 
 /// RGB threshold to convert from RGB image to binary image by high and low threshold

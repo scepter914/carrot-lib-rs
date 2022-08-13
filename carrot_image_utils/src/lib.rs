@@ -1,2 +1,2 @@
-pub mod image;
-pub mod util;
+pub mod geometry;
+pub mod rgb_image;
