@@ -9,6 +9,7 @@ documentation = "https://docs.rs/carrot_utils"
 license = "MIT"
 readme = "README.md"
 publish = false
+exclude = ["data/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

@@ -1,3 +1,3 @@
 # carrot_image_utils
 
-This repository is util library for image processing library by rust.
+This crate is util library for image processing library by rust.
