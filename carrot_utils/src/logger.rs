@@ -20,16 +20,16 @@ impl Logger {
     /// - log_file_name: The log file name
     /// - log_file_level: The log level for file logger
     /// - log_terminal_level: The log level for terminal logger
-    pub fn init(
-        log_directory_path: String,
-        log_file_name: String,
+    pub fn new(
+        log_directory_path: impl Into<String>,
+        log_file_name: impl Into<String>,
         log_file_level: LevelFilter,
         log_terminal_level: LevelFilter,
     ) -> Logger {
-        let formatted_log_directory_path: PathBuf = format_time_macro(log_directory_path);
+        let formatted_log_directory_path: PathBuf = format_time_macro(log_directory_path.into());
         let formatted_log_file_path: PathBuf =
-            formatted_log_directory_path.join(format_time_macro(log_file_name));
-
+            formatted_log_directory_path.join(format_time_macro(log_file_name.into()));
+        println!("{:?}", &formatted_log_file_path);
         let _ = fs::create_dir(&formatted_log_directory_path);
 
         // logger init
@@ -53,4 +53,14 @@ impl Logger {
             log_file_path: formatted_log_file_path,
         }
     }
+}
+
+#[test]
+fn test_logger() {
+    let _ = Logger::new(
+        "./data/{TIME_SEC}",
+        "log_{TIME_SEC}.txt",
+        LevelFilter::Debug,
+        LevelFilter::Debug,
+    );
 }
