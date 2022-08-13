@@ -4,5 +4,7 @@ This crate is util library by rust.
 
 ## History
 
+- v0.1.1
+  - Fix logger
 - v0.1.0
-  - publish initial library
+  - Publish initial library
