@@ -29,12 +29,17 @@ pub fn format_time_macro(string: String) -> PathBuf {
     PathBuf::from(&formatted_string)
 }
 
-#[test]
-fn test_path() {
-    println!("{}", get_day_time());
-    println!("{}", get_sec_time());
-    println!("{}", get_ms_time());
-    println!("{:?}", format_time_macro("test_{TIME_DAY}".to_string()));
-    println!("{:?}", format_time_macro("test_{TIME_SEC}".to_string()));
-    println!("{:?}", format_time_macro("test_{TIME_MS}".to_string()));
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_path() {
+        println!("{}", get_day_time());
+        println!("{}", get_sec_time());
+        println!("{}", get_ms_time());
+        println!("{:?}", format_time_macro("test_{TIME_DAY}".to_string()));
+        println!("{:?}", format_time_macro("test_{TIME_SEC}".to_string()));
+        println!("{:?}", format_time_macro("test_{TIME_MS}".to_string()));
+    }
 }

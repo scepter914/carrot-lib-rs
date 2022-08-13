@@ -1,5 +1,4 @@
-use std::time::Instant;
-use std::{thread, time};
+use std::time::{Duration, Instant};
 
 pub struct Benchmark {
     start_time: Instant,
@@ -23,7 +22,7 @@ impl Benchmark {
     }
 
     pub fn stop(&self) -> String {
-        let end: time::Duration = self.start_time.elapsed();
+        let end: Duration = self.start_time.elapsed();
         if end.as_secs_f32() > 1.0 {
             format!(
                 "{}.{:03} sec",
@@ -40,13 +39,19 @@ impl Benchmark {
     }
 }
 
-#[test]
-fn test_work_benchmark() {
-    let mut benchmark: Benchmark = Benchmark::new();
-    benchmark.start();
-    thread::sleep(time::Duration::from_millis(100));
-    println!("{}", benchmark.stop());
-    benchmark.start();
-    thread::sleep(time::Duration::from_millis(1500));
-    println!("{}", benchmark.stop());
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::thread::sleep;
+
+    #[test]
+    fn test_work_benchmark() {
+        let mut benchmark: Benchmark = Benchmark::new();
+        benchmark.start();
+        sleep(Duration::from_millis(100));
+        println!("{}", benchmark.stop());
+        benchmark.start();
+        sleep(Duration::from_millis(1500));
+        println!("{}", benchmark.stop());
+    }
 }

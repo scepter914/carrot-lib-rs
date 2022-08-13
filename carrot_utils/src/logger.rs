@@ -55,12 +55,17 @@ impl Logger {
     }
 }
 
-#[test]
-fn test_logger() {
-    let _ = Logger::new(
-        "./data/{TIME_SEC}",
-        "log_{TIME_SEC}.txt",
-        LevelFilter::Debug,
-        LevelFilter::Debug,
-    );
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_logger() {
+        let _ = Logger::new(
+            "./data/{TIME_SEC}",
+            "log_{TIME_SEC}.txt",
+            LevelFilter::Debug,
+            LevelFilter::Debug,
+        );
+    }
 }
