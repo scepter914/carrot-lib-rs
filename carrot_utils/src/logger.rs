@@ -30,7 +30,7 @@ impl Logger {
         let formatted_log_file_path: PathBuf =
             formatted_log_directory_path.join(format_time_macro(log_file_name.into()));
         println!("{:?}", &formatted_log_file_path);
-        let _ = fs::create_dir(&formatted_log_directory_path);
+        let _ = fs::create_dir_all(&formatted_log_directory_path);
 
         // logger init
         CombinedLogger::init(vec![
