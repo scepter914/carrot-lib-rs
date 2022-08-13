@@ -58,18 +58,17 @@ pub fn convert_by_threshold(image: &RgbImage, rgb_threshold: &RGBThreshold) -> G
 ///     - B threshold low < pixel.b < B threshold high
 
 fn convert_to_binary_pixel_by_threshold(pixel: &Rgb<u8>, rgb_threshold: &RGBThreshold) -> [u8; 1] {
-    let binary_pixel: [u8; 1];
-    if rgb_threshold.low_threshold[0] <= pixel[0]
+    let binary_pixel: [u8; 1] = if rgb_threshold.low_threshold[0] <= pixel[0]
         && pixel[0] <= rgb_threshold.high_threshold[0]
         && rgb_threshold.low_threshold[1] <= pixel[1]
         && pixel[1] <= rgb_threshold.high_threshold[1]
         && rgb_threshold.low_threshold[2] <= pixel[2]
         && pixel[2] <= rgb_threshold.high_threshold[2]
     {
-        binary_pixel = [255; 1];
+        [255; 1]
     } else {
-        binary_pixel = [0; 1];
-    }
+        [0; 1]
+    };
     binary_pixel
 }
 

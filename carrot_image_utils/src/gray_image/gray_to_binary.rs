@@ -28,18 +28,17 @@ fn binarize_pixel_by_threshold(
     low_threshold: u8,
     high_threshold: u8,
 ) -> Luma<u8> {
-    let value: [u8; 1];
-    if low_threshold <= pixel[0] && pixel[0] <= high_threshold {
-        value = [255; 1];
+    let value: [u8; 1] = if low_threshold <= pixel[0] && pixel[0] <= high_threshold {
+        [255; 1]
     } else {
-        value = [0; 1];
-    }
+        [0; 1]
+    };
     image::Luma(value)
 }
 
 /// - Convert gray image to binary image by otsu method
 
 pub fn convert_by_otsu(gray_image: &GrayImage) -> GrayImage {
-    let otsu_level = imageproc::contrast::otsu_level(&gray_image);
-    imageproc::contrast::threshold(&gray_image, otsu_level)
+    let otsu_level = imageproc::contrast::otsu_level(gray_image);
+    imageproc::contrast::threshold(gray_image, otsu_level)
 }
