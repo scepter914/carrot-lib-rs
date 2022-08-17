@@ -6,6 +6,18 @@ use simplelog::{ColorChoice, CombinedLogger, Config, TermLogger, TerminalMode};
 use std::fs;
 use std::path::PathBuf;
 
+/// Get log level from &str
+pub fn get_log_level(log_level: &str) -> LevelFilter {
+    match &log_level[..] {
+        "Error" => LevelFilter::Error,
+        "Warn" => LevelFilter::Warn,
+        "Info" => LevelFilter::Info,
+        "Debug" => LevelFilter::Debug,
+        "Trace" => LevelFilter::Trace,
+        _ => LevelFilter::Info,
+    }
+}
+
 /// Logger class
 pub struct Logger {
     /// The root result of directory
