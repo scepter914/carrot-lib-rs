@@ -1,6 +1,6 @@
 [package]
 name = "carrot_utils"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utils library"
 edition = "2021"
 authors = ["scepter914 <scepter914@gmail.com>"]
