@@ -1,5 +1,20 @@
 use chrono::Local;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
+
+/// Get file list to directory.
+/// Ref: <https://zenn.dev/sprout2000/scraps/52710bf49973b8>
+pub fn get_file_list<P: AsRef<Path>>(direcotry_path: P) -> std::io::Result<Vec<String>> {
+    Ok(std::fs::read_dir(direcotry_path)?
+        .filter_map(|entry| {
+            let entry = entry.ok()?;
+            if entry.file_type().ok()?.is_file() {
+                Some(entry.file_name().to_string_lossy().into_owned())
+            } else {
+                None
+            }
+        })
+        .collect())
+}
 
 /// Get string of time with day.
 /// {year}{month}{day}.
