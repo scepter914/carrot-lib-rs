@@ -1,3 +1,5 @@
+use colored::*;
+
 /// Search substring for string.
 ///
 /// Example
@@ -30,4 +32,21 @@ pub fn search_substring(
         }
     }
     None
+}
+
+/// Get colored string for checking.
+/// This function is useful for CLI tools.
+/// # Arguments
+/// - source: source string
+/// - target: target string
+/// # Return
+/// String
+/// if source == target -> "OK" with green color
+/// if source != target -> "NG" with red color
+pub fn get_check_result_string(source: &str, target: &str) -> ColoredString {
+    if source == target {
+        "OK".green()
+    } else {
+        "NG".red()
+    }
 }
