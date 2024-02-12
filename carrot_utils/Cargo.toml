@@ -1,6 +1,6 @@
 [package]
 name = "carrot_utils"
-version = "0.1.3"
+version = "0.1.4"
 description = "Utils library"
 edition = "2021"
 authors = ["scepter914 <scepter914@gmail.com>"]
@@ -17,3 +17,4 @@ exclude = ["data/*"]
 chrono = "0.4"
 log = "0.4"
 simplelog = "0.12.0"
+colored = "2.1.0"

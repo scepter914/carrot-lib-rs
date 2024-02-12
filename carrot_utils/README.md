@@ -6,6 +6,9 @@ This crate is util library by rust.
 
 ## History
 
+- For next release
+- v0.1.4
+  - add get_check_result_string()
 - v0.1.3
   - add log_file_enable_level for logger
 - v0.1.2
