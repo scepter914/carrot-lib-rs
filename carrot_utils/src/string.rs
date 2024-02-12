@@ -40,7 +40,7 @@ pub fn search_substring(
 /// - source: source string
 /// - target: target string
 /// # Return
-/// String
+/// ColoredString
 /// if source == target -> "OK" with green color
 /// if source != target -> "NG" with red color
 pub fn get_check_result_string(source: &str, target: &str) -> ColoredString {
