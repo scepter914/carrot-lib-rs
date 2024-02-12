@@ -7,6 +7,8 @@ This crate is util library by rust.
 ## History
 
 - For next release
+- v0.1.5
+  - Add command library
   - Update document
 - v0.1.4
   - Add get_check_result_string()
