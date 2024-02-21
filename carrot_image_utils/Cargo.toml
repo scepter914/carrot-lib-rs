@@ -1,6 +1,6 @@
 [package]
 name = "carrot_image_utils"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utils library for Image processing"
 edition = "2021"
 keywords = ["image", "vision"]
@@ -12,7 +12,6 @@ readme = "README.md"
 exclude = ["data/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 
 [dependencies]
 image = "0.24.3"

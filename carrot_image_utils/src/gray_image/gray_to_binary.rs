@@ -4,7 +4,6 @@ use image::{GrayImage, Luma};
 ///     - If low_threshold <= pixel_value <= high_threshold then, output pixel is 255 (white color)
 /// - Use Case
 ///     - If you want to a get binary image from pixel above threshold of a gray image, you should use convert_gray_to_binary_within_threshold(gray_image, threshold, 255)
-
 pub fn convert_by_threshold(
     gray_image: &GrayImage,
     low_threshold: u8,
@@ -36,8 +35,7 @@ fn binarize_pixel_by_threshold(
     image::Luma(value)
 }
 
-/// - Convert gray image to binary image by otsu method
-
+/// - Convert gray image to binary image by Otsu method
 pub fn convert_by_otsu(gray_image: &GrayImage) -> GrayImage {
     let otsu_level = imageproc::contrast::otsu_level(gray_image);
     imageproc::contrast::threshold(gray_image, otsu_level)
