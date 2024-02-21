@@ -2,6 +2,7 @@ use std::time::{Duration, Instant};
 
 pub struct Benchmark {
     start_time: Instant,
+    end_time: Duration,
 }
 
 impl Default for Benchmark {
@@ -14,6 +15,7 @@ impl Benchmark {
     pub fn new() -> Self {
         Benchmark {
             start_time: Instant::now(),
+            end_time: Duration::new(0, 0),
         }
     }
 
@@ -21,21 +23,28 @@ impl Benchmark {
         self.start_time = Instant::now();
     }
 
-    pub fn stop(&self) -> String {
-        let end: Duration = self.start_time.elapsed();
-        if end.as_secs_f32() > 1.0 {
+    pub fn stop(&mut self) {
+        self.end_time = self.start_time.elapsed();
+    }
+
+    pub fn to_string(&self) -> String {
+        if self.end_time.as_secs_f32() > 1.0 {
             format!(
                 "{}.{:03} sec",
-                end.as_millis() / 1000,
-                end.as_millis() % 1000
+                self.end_time.as_millis() / 1000,
+                self.end_time.as_millis() % 1000
             )
         } else {
             format!(
                 "{}.{:03} ms",
-                end.as_micros() / 1000,
-                end.as_micros() % 1000,
+                self.end_time.as_micros() / 1000,
+                self.end_time.as_micros() % 1000,
             )
         }
+    }
+
+    pub fn print(&self) {
+        println!("time: {}", self.to_string())
     }
 }
 

@@ -7,6 +7,8 @@ This crate is util library by rust.
 ## History
 
 - For next release
+- v0.1.6
+  - Fix Benchmark struct
 - v0.1.5
   - Add command library
   - Update document
