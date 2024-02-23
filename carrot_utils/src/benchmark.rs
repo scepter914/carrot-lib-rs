@@ -58,9 +58,9 @@ mod tests {
         let mut benchmark: Benchmark = Benchmark::new();
         benchmark.start();
         sleep(Duration::from_millis(100));
-        println!("{}", benchmark.stop());
+        println!("{:?}", benchmark.stop());
         benchmark.start();
         sleep(Duration::from_millis(1500));
-        println!("{}", benchmark.stop());
+        println!("{:?}", benchmark.stop());
     }
 }
