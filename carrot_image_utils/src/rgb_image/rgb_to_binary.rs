@@ -1,6 +1,10 @@
-use crate::gray_image::{gray_to_binary, gray_to_rgb};
-use crate::rgb_image::rgb_to_gray;
+use crate::gray_image::gray_to_binary;
+use crate::gray_image::gray_to_rgb::convert_to_rgb;
+use crate::rgb_image::{rgb_to_gray, rgb_to_rgb};
+
 use image::{GrayImage, Luma, Rgb, RgbImage};
+
+use super::concat::concat_matrix_images;
 
 /// RGB threshold to convert from RGB image to binary image by high and low threshold
 ///  high_threshold : [r, g, b]
@@ -67,21 +71,8 @@ impl RGBThreshold {
         };
         binary_pixel
     }
-
-    /// - Debug image consist of 8 image
-    ///     - input rgb image, binary image
-    ///     - R gray image, binary image from R image
-    ///     - G gray image, binary image from G image
-    ///     - B gray image, binary image from B image
-    pub fn get_rgb_threshold_debug_image(&self, image: &RgbImage) -> RgbImage {
-        let width = image.width();
-        let height = image.height();
-        let mut combined_image = RgbImage::new(2 * width, 4 * height);
-
-        let binarized_image_by_rgb_threshold = self.convert_by_threshold(image);
-        let rgb_binarized_image_by_rgb_threshold =
-            gray_to_rgb::convert_to_rgb(&binarized_image_by_rgb_threshold);
-
+    /// Get binarized images for each rgb value to debug
+    pub fn get_binarized_images_for_each_rgb(&self, image: &RgbImage) -> Vec<RgbImage> {
         // r
         let gray_r_image = rgb_to_gray::convert_r_to_gray_image(&image);
         let binary_r_image = gray_to_binary::convert_by_threshold(
@@ -89,8 +80,7 @@ impl RGBThreshold {
             self.r_high_threshold(),
             self.r_low_threshold(),
         );
-        let rgb_converted_gray_r_image = gray_to_rgb::convert_to_r(&gray_r_image);
-        let rgb_converted_binary_r_image = gray_to_rgb::convert_to_rgb(&binary_r_image);
+        let rgb_converted_binary_r_image = convert_to_rgb(&binary_r_image);
 
         // g
         let gray_g_image = rgb_to_gray::convert_g_to_gray_image(&image);
@@ -99,8 +89,7 @@ impl RGBThreshold {
             self.g_high_threshold(),
             self.g_low_threshold(),
         );
-        let rgb_converted_gray_g_image = gray_to_rgb::convert_to_g(&gray_g_image);
-        let rgb_converted_binary_g_image = gray_to_rgb::convert_to_rgb(&binary_g_image);
+        let rgb_converted_binary_g_image = convert_to_rgb(&binary_g_image);
 
         // b
         let gray_b_image = rgb_to_gray::convert_b_to_gray_image(&image);
@@ -109,41 +98,30 @@ impl RGBThreshold {
             self.b_high_threshold(),
             self.b_low_threshold(),
         );
-        let rgb_converted_gray_b_image = gray_to_rgb::convert_to_b(&gray_b_image);
-        let rgb_converted_binary_b_image = gray_to_rgb::convert_to_rgb(&binary_b_image);
+        let rgb_converted_binary_b_image = convert_to_rgb(&binary_b_image);
 
-        for i in 0..width {
-            for j in 0..height {
-                // input image
-                let pixel = image.get_pixel(i, j);
-                combined_image.put_pixel(i, j, *pixel);
+        vec![
+            rgb_converted_binary_r_image,
+            rgb_converted_binary_g_image,
+            rgb_converted_binary_b_image,
+        ]
+    }
 
-                // binalized image
-                let pixel = rgb_binarized_image_by_rgb_threshold.get_pixel(i, j);
-                combined_image.put_pixel(width + i, j, *pixel);
+    pub fn get_rgb_threshold_debug_image(
+        &self,
+        image: &RgbImage,
+        width: u32,
+        height: u32,
+    ) -> RgbImage {
+        // input and result images
+        let output_image = convert_to_rgb(&self.convert_by_threshold(image));
+        let dummy_image = RgbImage::new(width, height);
+        let input_and_results = vec![image.clone(), output_image, dummy_image];
 
-                // r, r thres
-                let pixel = rgb_converted_gray_r_image.get_pixel(i, j);
-                combined_image.put_pixel(i, height + j, *pixel);
+        let rgb_each_images = rgb_to_rgb::divide_channel(image);
+        let binarized_images = self.get_binarized_images_for_each_rgb(image);
 
-                let pixel = rgb_converted_binary_r_image.get_pixel(i, j);
-                combined_image.put_pixel(width + i, height + j, *pixel);
-
-                // g, g thres
-                let pixel = rgb_converted_gray_g_image.get_pixel(i, j);
-                combined_image.put_pixel(i, 2 * height + j, *pixel);
-
-                let pixel = rgb_converted_binary_g_image.get_pixel(i, j);
-                combined_image.put_pixel(width + i, 2 * height + j, *pixel);
-
-                // b, b thres
-                let pixel = rgb_converted_gray_b_image.get_pixel(i, j);
-                combined_image.put_pixel(i, 3 * height + j, *pixel);
-
-                let pixel = rgb_converted_binary_b_image.get_pixel(i, j);
-                combined_image.put_pixel(width + i, 3 * height + j, *pixel);
-            }
-        }
-        combined_image
+        let image_matrix = vec![input_and_results, rgb_each_images, binarized_images];
+        concat_matrix_images(&image_matrix, width, height)
     }
 }
