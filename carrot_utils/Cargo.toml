@@ -1,19 +1,18 @@
 [package]
 name = "carrot_utils"
-version = "0.1.6"
-description = "Utils library"
+version = "0.1.7"
 edition = "2021"
+
+license = "MIT"
+description = "Utils library"
 authors = ["scepter914 <scepter914@gmail.com>"]
+
+readme = "README.md"
 repository = "https://github.com/scepter914/carrot-utils-rs"
 documentation = "https://docs.rs/carrot_utils"
-license = "MIT"
-readme = "README.md"
 exclude = ["data/*"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-
 chrono = "0.4"
 log = "0.4"
 simplelog = "0.12.0"

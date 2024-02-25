@@ -2,12 +2,16 @@
 
 This crate is util library by rust.
 
-- [crate.io](https://crates.io/crates/carrot_utils)
+- Document
+  - [crates.io](https://crates.io/crates/carrot_utils)
+  - [docs.rs](https://docs.rs/carrot_utils)
 
 ## History
 
 - For next release
+- v0.1.7
   - Fix test
+  - Update Cargo.toml and README.md
 - v0.1.6
   - Fix Benchmark struct
 - v0.1.5
