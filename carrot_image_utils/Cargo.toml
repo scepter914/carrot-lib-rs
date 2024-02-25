@@ -10,7 +10,7 @@ authors = ["scepter914 <scepter914@gmail.com>"]
 readme = "README.md"
 documentation = "https://docs.rs/carrot_image_utils"
 repository = "https://github.com/scepter914/carrot-lib-rs"
-categories = ["Computer-vision"]
+categories = ["computer-vision"]
 keywords = ["image", "vision"]
 
 exclude = ["data/*"]
