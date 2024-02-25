@@ -9,6 +9,8 @@ This crate is util library for image processing by rust.
 ## History
 
 - For new release
+- v0.1.10
+  - Update Cargo.toml
 - v0.1.9
   - Fix manifest and README.md
   - Move repository
